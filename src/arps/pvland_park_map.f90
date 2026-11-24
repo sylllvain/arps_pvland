@@ -69,8 +69,8 @@ SUBROUTINE pvland_park_map(nx,ny,pv_park,tem1)
 
   IF (myproc == 0) THEN
 
-	!temp_pv_park(:,:) = 1.
-	temp_pv_park(25:50,:) = 1.
+	temp_pv_park(:,:) = 1.
+	!temp_pv_park(25:50,:) = 1.   ! requires nx >= 50 (e.g. test2_sylvain, nx = 115)
 
   ENDIF
 
