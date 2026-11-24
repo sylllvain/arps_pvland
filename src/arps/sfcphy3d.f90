@@ -1030,20 +1030,21 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
                              dum_G_LW_nat, dum_J_LW_nat)
     
     ! Predictor step: T^(n+1/2) = T^n + (dt/2) * frc^n
+    ! Same predictor-corrector as soilebm (soilebm3d.f90)  [SYLVAIN]
     DO j = 1, ny-1
       DO i = 1, nx-1
       IF (pv_park(i,j).eq.1.) THEN
-        T_PVf_half(i,j)  = T_PVf(i,j)  + dtsfc * frc_PVf(i,j)
-        T_cell_half(i,j) = T_cell(i,j) + dtsfc * frc_cell(i,j)
-        T_PVb_half(i,j)  = T_PVb(i,j)  + dtsfc * frc_PVb(i,j)
+        T_PVf_half(i,j)  = T_PVf(i,j)  + 0.5*dtsfc * frc_PVf(i,j)
+        T_cell_half(i,j) = T_cell(i,j) + 0.5*dtsfc * frc_cell(i,j)
+        T_PVb_half(i,j)  = T_PVb(i,j)  + 0.5*dtsfc * frc_PVb(i,j)
        ENDIF
-        T_nat_half(i,j)  = T_nat(i,j)  + dtsfc * frc_nat(i,j)
-        T_soil_half(i,j) = T_soil(i,j) + dtsfc * frc_soil(i,j)
+        T_nat_half(i,j)  = T_nat(i,j)  + 0.5*dtsfc * frc_nat(i,j)
+        T_soil_half(i,j) = T_soil(i,j) + 0.5*dtsfc * frc_soil(i,j)
         ! Moisture half-step (clamped to [0, wsat] like ARPS soilebm)
-        qsoil_surf_half(i,j) = qsoil_surf(i,j) + dtsfc * frc_wsfc(i,j)
+        qsoil_surf_half(i,j) = qsoil_surf(i,j) + 0.5*dtsfc * frc_wsfc(i,j)
         qsoil_surf_half(i,j) = MAX(qsoil_surf_half(i,j), 0.0)
         qsoil_surf_half(i,j) = MIN(qsoil_surf_half(i,j), wsat(soiltyp(i,j,1)))
-        qsoil_deep_half(i,j) = qsoil_deep(i,j) + dtsfc * frc_wdp(i,j)
+        qsoil_deep_half(i,j) = qsoil_deep(i,j) + 0.5*dtsfc * frc_wdp(i,j)
         qsoil_deep_half(i,j) = MAX(qsoil_deep_half(i,j), 0.0)
         qsoil_deep_half(i,j) = MIN(qsoil_deep_half(i,j), wsat(soiltyp(i,j,1)))
       END DO
@@ -1051,7 +1052,7 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
     wetcanp_half = wetcanp
     DO j = 1, ny-1
       DO i = 1, nx-1
-        wetcanp_half(i,j,is) = wetcanp(i,j,is) + dtsfc * frc_wcnp(i,j)
+        wetcanp_half(i,j,is) = wetcanp(i,j,is) + 0.5*dtsfc * frc_wcnp(i,j)
         wetcanp_half(i,j,is) = MAX(wetcanp_half(i,j,is), 0.0)
         wetcanp_half(i,j,is) = MIN(wetcanp_half(i,j,is), wrmax(i,j))
       END DO
