@@ -17,6 +17,10 @@ SUBROUTINE pvland_park_map(nx,ny,pv_park,tem1)
 !
 !  Define the location of the PV park on the ARPS grid:
 !  pv_park(i,j) = 1. inside the park, 0. outside.
+!  Namelist &pvland (module pvland_nml):
+!    pv_park_opt = 0 : whole domain
+!    pv_park_opt = 1 : rectangle pv_park_i1:pv_park_i2 x pv_park_j1:pv_park_j2
+!                      (global scalar-point indices, clipped to the domain)
 !
 !  This routine is host-model specific (MPI, boundary conditions):
 !  the ARPS version is here, the offline PV-LAND model provides its own
@@ -29,6 +33,9 @@ SUBROUTINE pvland_park_map(nx,ny,pv_park,tem1)
 !
 !-----------------------------------------------------------------------
 !
+  USE pvland_nml, ONLY : pv_park_opt, pv_park_i1, pv_park_i2,         &
+                         pv_park_j1, pv_park_j2
+
   IMPLICIT NONE
 
   INTEGER :: nx,ny
@@ -69,8 +76,12 @@ SUBROUTINE pvland_park_map(nx,ny,pv_park,tem1)
 
   IF (myproc == 0) THEN
 
-	temp_pv_park(:,:) = 1.
-	!temp_pv_park(25:50,:) = 1.   ! requires nx >= 50 (e.g. test2_sylvain, nx = 115)
+	IF (pv_park_opt == 1) THEN
+	  temp_pv_park(MAX(pv_park_i1,1):MIN(pv_park_i2,nxlg),           &
+	               MAX(pv_park_j1,1):MIN(pv_park_j2,nylg)) = 1.
+	ELSE
+	  temp_pv_park(:,:) = 1.
+	ENDIF
 
   ENDIF
 

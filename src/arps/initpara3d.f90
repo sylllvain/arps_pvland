@@ -166,6 +166,8 @@ SUBROUTINE initpara(nx,ny,nz,nzsoil,nstyps,namelist_filename)
 !
 !-----------------------------------------------------------------------
 !
+  USE pvland_nml       ! PV-LAND namelist &pvland  [SYLVAIN]
+
   IMPLICIT NONE
 
   INTEGER, INTENT(OUT) :: nx,ny,nz      ! The number of grid points in 3 dimensions.
@@ -3048,6 +3050,70 @@ SUBROUTINE initpara(nx,ny,nz,nzsoil,nstyps,namelist_filename)
           '    in deep and skin layer soil seasonal-mean temperatures is ',   &
           tsoil_offset_amplitude
 
+!
+!-----------------------------------------------------------------------
+!
+!  Read in the PV-LAND parameters (sfcphy = 5 only): namelist &pvland,
+!  module pvland_nml (module_pvland.f90).  [SYLVAIN]
+!
+!-----------------------------------------------------------------------
+!
+  IF (sfcphy == 5) THEN
+    IF (myproc == 0) THEN
+      READ (unum,pvland,END=100)
+      WRITE(6,'(a)')'Namelist block pvland sucessfully read.'
+    END IF
+    CALL mpupdatei(vf_update_opt,1)
+    CALL mpupdatei(pv_park_opt,1)
+    CALL mpupdatei(pv_park_i1,1)
+    CALL mpupdatei(pv_park_i2,1)
+    CALL mpupdatei(pv_park_j1,1)
+    CALL mpupdatei(pv_park_j2,1)
+    CALL mpupdater(pv_L,1)
+    CALL mpupdater(pv_a,1)
+    CALL mpupdater(pv_beta_deg,1)
+    CALL mpupdater(pv_h_PV,1)
+    CALL mpupdater(pv_theta_0_deg,1)
+    CALL mpupdater(pv_az_park,1)
+    CALL mpupdater(pv_z0_PV_back,1)
+    CALL mpupdater(pv_z0_PV_front,1)
+    CALL mpupdater(pv_albedo_nat,1)
+    CALL mpupdater(pv_albedo_PVf,1)
+    CALL mpupdater(pv_albedo_PVb,1)
+    CALL mpupdater(pv_emiss_nat,1)
+    CALL mpupdater(pv_emiss_PVf,1)
+    CALL mpupdater(pv_emiss_PVb,1)
+    CALL mpupdater(pv_l_PVb_can,1)
+    CALL mpupdater(pv_l_PVf_PVa,1)
+    CALL mpupdater(pv_delta_PVf,1)
+    CALL mpupdater(pv_delta_cell,1)
+    CALL mpupdater(pv_delta_PVb,1)
+    CALL mpupdater(pv_rho_cp_PVf,1)
+    CALL mpupdater(pv_rho_cp_cell,1)
+    CALL mpupdater(pv_rho_cp_PVb,1)
+    CALL mpupdater(pv_k_glass,1)
+    CALL mpupdater(pv_k_EVA,1)
+    CALL mpupdater(pv_k_backsheet,1)
+    CALL mpupdater(pv_delta_glass,1)
+    CALL mpupdater(pv_delta_EVA_top,1)
+    CALL mpupdater(pv_delta_EVA_bot,1)
+    CALL mpupdater(pv_delta_backsheet,1)
+    CALL mpupdater(pv_eta_STC,1)
+    CALL mpupdater(pv_gamma_PV,1)
+
+    IF (myproc == 0) WRITE(6,NML=pvland)
+
+    IF (vf_update_opt < 0 .OR. vf_update_opt > 1) THEN
+      IF (myproc == 0) WRITE (6,'(5x,a,i4,a)')                          &
+          'vf_update_opt = ', vf_update_opt, ' must be 0 or 1.'
+      err_no = err_no + 1
+    END IF
+    IF (pv_park_opt < 0 .OR. pv_park_opt > 1) THEN
+      IF (myproc == 0) WRITE (6,'(5x,a,i4,a)')                          &
+          'pv_park_opt = ', pv_park_opt, ' must be 0 or 1.'
+      err_no = err_no + 1
+    END IF
+  END IF
 !
 !-----------------------------------------------------------------------
 !
