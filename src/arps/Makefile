@@ -255,7 +255,7 @@ ARPSOBJS1 = module_precision.o sorad3d.o solve3d.o tmix3d.o micro_ice3d.o \
             raydmp3d.o rst3d.o setbdt3d.o sfcphy3d.o soildiag3d.o     \
             module_pvland.o pvland.o pvland_profil.o pvland_view_factors.o \
             pvland_pv_thermal.o pvland_radiosity_SW.o pvland_radiosity_LW.o \
-            pvland_solar_radiation.o \
+            pvland_solar_radiation.o pvland_park_map.o \
             soilebm3d.o tinteg3d.o tke3d.o  initlib3d.o rhouvw.o      \
             vfftpack.o wwcont3d.o nudge.o smooth3d.o                  \
             interface_wrf_bmj.o module_cu_bmj.o module_cu_kfeta.o     \
@@ -673,6 +673,9 @@ pvland_radiosity_SW.o  : pvland_radiosity_SW.f90
 pvland_radiosity_LW.o  : pvland_radiosity_LW.f90
 pvland_solar_radiation.o  : pvland_solar_radiation.f90
 pvland.o  : pvland.f90 module_pvland.o
+pvland_park_map.o : pvland_park_map.f90 $(INCLDIR)/globcst.inc \
+                             $(INCLDIR)/bndry.inc \
+                             $(INCLDIR)/mp.inc
 sfcphy3d.o   : sfcphy3d.f90  $(INCLDIR)/globcst.inc \
                              $(INCLDIR)/phycst.inc \
                              $(INCLDIR)/timelvls.inc \

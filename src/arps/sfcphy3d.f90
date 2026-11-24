@@ -829,10 +829,6 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
     wetcanp(:,:,0) = 0.0
     qvsfc(:,:,0)   = 0.0
 
-    usflx (:,:) = 0.0
-    vsflx (:,:) = 0.0
-    ptsflx(:,:) = 0.0
-    qvsflx(:,:) = 0.0
 
     IF ( soilinitopt == 1 .AND. nstep == 1 ) THEN
       nsfcstsave = nsfcst
@@ -852,9 +848,17 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
       ! Transform zenithal and azimutal angles accoridng to PV park orientation
       call compute_lambda_phi(szenith_deg(i,j), sazimuth_deg(i,j)+180., AZ_PARK(i,j), lambda_deg(i,j), phi_deg(i,j))
       
+	! Obukhov length from the surface fluxes of the previous time step:
+	!   L = -u*^3 theta / (kv g w'theta'),  with  rho u*^2 = |tau| = SQRT(usflx^2+vsflx^2)
+	!   and ptsflx = cdh rho U (pt1-ptsfc) = -rho w'theta'  (ARPS: positive downward)
+	!   =>  L = theta |tau|^(3/2) / (kv g ptsflx SQRT(rho))   (L<0 unstable, L>0 stable)
+	! usflx/vsflx are defined at u/v points (computed for i,j = 2..n-1):
+	! averaged to the scalar point, one-sided at the domain edges.  [SYLVAIN]
 	if (ptsflx(i,j).ne.0.) then
-			L_obk(i,j) = -pt1(i,j)*(usflx(i,j)+vsflx(i,j))**(3./2.)/&
-						(kv*g*ptsflx(i,j)*sqrt(rhosfc(i,j)))
+			L_obk(i,j) = pt1(i,j)*(                                         &
+				(0.5*(usflx(MAX(i,2),j)+usflx(MIN(i+1,nx-1),j)))**2 +   &
+				(0.5*(vsflx(i,MAX(j,2))+vsflx(i,MIN(j+1,ny-1))))**2     &
+				)**(3./4.)/(kv*g*ptsflx(i,j)*sqrt(rhosfc(i,j)))
 	else
 			L_obk(i,j) = -1000.
 	endif
@@ -923,6 +927,11 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
     !-------------------------------------------------------------------
     ! 3. COMPUTE USFLX, VSFLX, PTSFLX, QVSFLX
     !-------------------------------------------------------------------
+
+    usflx (:,:) = 0.0
+    vsflx (:,:) = 0.0
+    ptsflx(:,:) = 0.0
+    qvsflx(:,:) = 0.0
 
       DO j=1,ny-1
         DO i=1,nx-1

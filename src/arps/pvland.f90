@@ -57,9 +57,6 @@ SUBROUTINE INIT_PVLAND(nx,ny,nz,ptbar,ptprt,pbar,pprt,qvsfc,tsoil,&
   INTEGER :: i, j
   REAL :: beta_deg,theta_0_deg,psfc
   REAL, PARAMETER :: pi = 3.14159265359
- 
-  INTEGER :: nxlg,nylg
-  REAL, ALLOCATABLE :: temp_pv_park(:,:)
 !
 !-----------------------------------------------------------------------
 !
@@ -69,8 +66,6 @@ SUBROUTINE INIT_PVLAND(nx,ny,nz,ptbar,ptprt,pbar,pprt,qvsfc,tsoil,&
 !
   INCLUDE 'globcst.inc'
   INCLUDE 'phycst.inc'
-  INCLUDE 'bndry.inc'
-  INCLUDE 'mp.inc'            ! Message passing parameters.
 !
 !@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 !
@@ -118,34 +113,9 @@ SUBROUTINE INIT_PVLAND(nx,ny,nz,ptbar,ptprt,pbar,pprt,qvsfc,tsoil,&
   ALLOCATE(AZ_PARK(nx,ny))
 
   ! ====== PV park location ======
-  
-  nxlg = (nx-3)*nproc_x+3
-  nylg = (ny-3)*nproc_y+3
-  
-  ALLOCATE(temp_pv_park(nxlg,nylg))
-  temp_pv_park = 0.
-  
-  IF (myproc == 0) THEN
-  
-	!temp_pv_park(:,:) = 1.
-	temp_pv_park(25:50,:) = 1.
-  
-  ENDIF
-
-  CALL mpisplit2d(temp_pv_park,nx,ny,pv_park)
-  
-  IF (mp_opt > 0) THEN
-    CALL acct_interrupt(mp_acct)
-    CALL mpsendrecv1dew(pv_park,nx,ny,ebc,wbc,0,tem1)
-    CALL mpsendrecv1dns(pv_park,nx,ny,nbc,sbc,0,tem1)
-  END IF
-
-  CALL acct_interrupt(bc_acct)
-
-  CALL bcs2d(nx,ny, pv_park, ebc,wbc,nbc,sbc)
-  CALL acct_stop_inter
-   
-  DEALLOCATE(temp_pv_park)
+  ! Host-model specific (pvland_park_map.f90): ARPS grid + MPI in ARPS,
+  ! whole domain in the offline model.  [SYLVAIN]
+  CALL pvland_park_map(nx,ny,pv_park,tem1)
   
   ! ====== PV park geometry ======
   L = 3.23           ! Panel width (m)
