@@ -1,0 +1,29 @@
+# --- Binaires et objets (régénérés par makearps) ---
+/bin/
+/lib/
+*.o
+*.mod
+*.a
+*.so
+*.exe
+
+# --- Sauvegardes ---
+*.bak
+*~
+
+# --- Sorties de simulation (cas tests) ---
+*.output
+slurm-*.out
+arps_br.*.e
+arps_br.*.o
+test_sylvain/may20.*
+test2_sylvain/may20.*
+test_sylvain/output/
+test2_sylvain/output/
+*.plt
+
+# --- Gros fichiers de données python (shapefiles) ---
+/scripts/python/
+
+# --- Logs de compilation ---
+/sortie

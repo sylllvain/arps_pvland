@@ -1,0 +1,55 @@
+StaID    Station        Lat         Lon     Elev(m)
+KARS  5NE Abernathy   33.8754   -101.7572    1015.9
+KAMH  1NE Amherst     34.0218   -102.4045    1111.6
+KANS  2E Andrews      32.3201   -102.5167     965.9
+KAOS  6S Anton        33.7253   -102.1908    1037.8
+KASR  3NE Aspermont   33.1680   -100.1960     530.4
+KBWS  2S Brownfield   33.1519   -102.2710    1010.1
+KCXS  2NNE Childress  34.4565   -100.1989     592.2
+KCES  2W Clarendon    34.9249   -100.9300     864.6
+KDVS  7W Denver City  32.9908   -102.9387    1113.1
+KDMS  2NE Dimmitt     34.5675   -102.2932    1181.4
+KDR1  2SW Dora        33.9201   -103.3578    1322.8
+KFLS  2NE Floydada    34.0016   -101.3259     969.0
+KFLV  3W Fluvanna     32.8990   -101.2019     825.1
+KFVS  3W Fluvanna     32.8990   -101.2019     825.1
+KFAS  2NE Friona      34.6545   -102.6910    1221.9
+KGGS  2 SE Gail       32.7551   -101.4144     777.8
+KGDS  Goodlett        34.3439    -99.9397     501.1
+KGHS  5SW Graham      33.0815   -101.5161     868.9
+KPFS  10WSW Guthrie   33.5670   -100.4806     609.2
+KHRS  3N Hart         34.4232   -102.1073    1125.9
+KHES  2NW Hereford    34.8308   -102.4248    1182.0
+KJTS  1S Jayton       33.2324   -100.5678     612.8
+KAHS  1NW Lake Al Hen 33.0772   -101.0579     705.0
+KLES  2SE Lamesa      32.7059   -101.9362     901.0
+KLDS  4S Levelland    33.5265   -102.3600    1065.6
+KLBW  3NWW Lubbock    33.5915   -101.8990     985.4
+KMCS  1E McLean       35.2372   -100.5749     872.6
+KMES  1NE Memphis     34.7314   -100.5254     627.0
+KMNS  1NE Morton      33.7348   -102.7398    1144.2
+KMUS  2S Muleshoe     34.2064   -102.7424    1160.1
+KNOR  1S Northfield   34.2730   -100.6044     636.4
+KOES  1N O'Donnell    32.9852   -101.8251     930.8
+KONS  6S of Olton     34.0938   -102.1181    1086.9
+KPAD  10SW Paducah    33.8905   -100.3989     616.0
+KPMS  2E Pampa        35.5395   -100.9277     980.3
+KPPS  3N Plains       33.2281   -102.8394    1131.1
+KPVS  1S Plainview    34.1787   -101.7079    1015.3
+KPTS  1S Post         33.1718   -101.3854     797.9
+KRAS  1SE Ralls       33.6684   -101.3758     944.0
+KREE  12W Lubbock     33.6075   -102.0490    1020.2
+KRRS  3N Roaring S.   33.9364   -100.8454     797.1
+KSGV  1SW Seagraves   32.9364   -102.5744    1024.1
+KSMS  2N Seminole     32.7407   -102.6358    1009.8
+KSVS  7E Silverton    34.4454   -101.1905     976.0
+KSLS  2NE Slaton      33.4569   -101.6172     925.1
+KSYS  3E Snyder       32.7161   -100.8617     741.2
+KSPR  1W Spur         33.4808   -100.8764     697.1
+KSDS  8WSW Sundown    33.3892   -102.6099    1104.9
+KTAS  3NNE Tahoka     33.2075   -101.7803     946.1
+KTAT  2SW Tatum       33.2388   -103.3521    1224.7
+KTIS  2NE Tulia       34.5429   -101.7405    1060.1
+KTUR  2WSW Turkey     34.3790   -100.9318     746.8
+KWVS  6NW White River 33.5253   -101.1651     824.1
+KWOS  6SW Wolfforth   33.4207   -102.0498    1008.0

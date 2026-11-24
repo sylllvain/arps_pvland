@@ -1,0 +1,5 @@
+Robin Tanamachi converted the SoloII color maps (obtained from Lou Wicker) 
+into ASCII RGB table format. These maps (along with a handy PNG reference 
+chart) are included here. To use, simply modify the &col_table_cntl 
+namelist in arpsplt.input.
+

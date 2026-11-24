@@ -1,0 +1,24 @@
+
+05/02/2002 Jason Levit
+Added a directory for station data tables needed by the ARPS verification
+package, arpsverif.
+
+8/15/1995
+This directory should contain the terrain and surface 
+characteristics data used by ARPS. 
+
+However, to reduce the disk usage for each updates of the
+source code, the compressed tar file of the data is 
+stored in a separate place.
+
+For external users, arps40.data.tar.Z can be obtained from 
+directory pub/ARPS of CAPS anonymous FTP account at ftp.caps.ou.edu.
+
+For local users having access to the CAPS IBM cluster, arps40.data.tar.Z 
+can be copied from /arps1/ftp/pub/ARPS directory.
+
+For more information, contact arpsuser@ou.edu.
+Inforamtion on CAPS and ARPS can also be accessed via
+WWW page at www.caps.ou.edu.
+
+

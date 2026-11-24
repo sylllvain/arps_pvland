@@ -1,0 +1,19 @@
+#      ST        Site name           Lat      Lon    Elev Type
+#.....|..|........................|.......|........|.....|....|
+UKW    TX Bowie                     33.537  -97.822  -999  921
+BYP    TX Bonham                    33.537  -96.233  -999  921
+JEN    TX Glen_Rose                 32.160  -97.878  -999  921
+CQY    TX Cedar_Creek               32.185  -96.218  -999  921
+DFW    TX DFW Airport               32.900  -97.017   174  911
+OKC    OK Oklahoma City             35.383  -97.600   390  911
+TUL    OK Tulsa                     36.200  -95.883   207  911
+ICT    KS Wichita                   37.650  -97.450   408  911
+FSM    AR Fort Smith                35.333  -94.367   140  911
+SRX    AR Fort Smith Radar          35.291  -94.362   220  931
+SHV    LA Shreveport Radar          32.451  -93.841   118  931
+FWS    TX Dallas Radar              32.573  -97.303   233  931
+TLX    OK Twin Lakes Radar          35.331  -97.278   389  931
+INX    OK Tulsa Radar               36.175  -95.564   228  931
+VNX    OK Vance AFB Radar           36.741  -98.128   384  931
+FDR    OK Frederick Radar           34.362  -98.976   400  931
+ICT    KS Wichita Radar             37.655  -97.442   427  931
