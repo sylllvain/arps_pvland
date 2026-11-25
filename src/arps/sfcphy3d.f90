@@ -751,7 +751,7 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
       nsfcst = nint(soiltintv/dtsfc)
     END IF
 
-    ! temxy1..4 are passed for the measured-forcing arguments, which are
+    ! temxy1..3 are passed for the measured-forcing arguments, which are
     ! not used with meas_opt = 0
     CALL pvland_sfcphy(nx,ny,nz,nzsoil,nstyps,                          &
          u,v,w,ptprt,pprt,qv,ptbar,pbar,qvbar,zp,prcrate,               &
@@ -760,7 +760,7 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
          radsw,rnflx,radlwin,psfc,rhosfc,wdspsfc,gumove,gvmove,         &
          cdm,cdh,cdq,usflx,vsflx,ptsflx,qvsflx,                         &
          pt1,tair,qvair,                                                &
-         0,temxy1,temxy2,temxy3,temxy4)
+         0,temxy1,temxy2,temxy3)
 
     IF ( soilinitopt == 1 .AND. nstep == 1 ) nsfcst = nsfcstsave
           

@@ -21,7 +21,7 @@ SUBROUTINE pvland_park_map(nx,ny,pv_park,tem1)
 !    pv_park_opt = 0 : whole domain
 !    pv_park_opt = 1 : rectangle pv_park_i1:pv_park_i2 x pv_park_j1:pv_park_j2
 !                      (global scalar-point indices, clipped to the domain)
-!    pv_park_opt = 2 : no PV park (natural ground only, as sfcphy = 4)
+!    pv_park_opt = 2 : no PV park (natural ground only, PV-LAND soil physics)
 !
 !  This routine is host-model specific (MPI, boundary conditions):
 !  the ARPS version is here, the offline PV-LAND model provides its own

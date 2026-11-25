@@ -124,7 +124,7 @@ PROGRAM arps
 !-----------------------------------------------------------------------
 !
 ! MODIF SYLVAIN
-  USE module_pvland_out, only : T_PVf, T_cell, T_PVb, ptsfc_eff, qvsfc_eff
+  USE module_pvland_out, only : T_PVf, T_cell, T_PVb, ptsfc_eff, qvsfc_eff, q_can, L_obk, T_can, T_PVa
 ! FIN MODIF
 
   IMPLICIT NONE             ! Force explicit declarations
@@ -1108,6 +1108,8 @@ PROGRAM arps
   
 ! MODIF SYLVAIN
   ALLOCATE(T_PVf(nx,ny), T_cell(nx,ny), T_PVb(nx,ny), ptsfc_eff(nx,ny), qvsfc_eff(nx,ny))
+  ALLOCATE(q_can(nx,ny), L_obk(nx,ny))   ! PV-LAND version 2 state (restart)
+  ALLOCATE(T_can(nx,ny), T_PVa(nx,ny))   ! PV-LAND air nodes (restart)
 ! FIN MODIF SYLVAIN  
 
 

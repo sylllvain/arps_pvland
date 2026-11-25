@@ -3075,16 +3075,22 @@ SUBROUTINE initpara(nx,ny,nz,nzsoil,nstyps,namelist_filename)
     CALL mpupdater(pv_h_PV,1)
     CALL mpupdater(pv_theta_0_deg,1)
     CALL mpupdater(pv_az_park,1)
-    CALL mpupdater(pv_z0_PV_back,1)
-    CALL mpupdater(pv_z0_PV_front,1)
+    CALL mpupdater(pv_zd_nat,1)
+    CALL mpupdater(pv_ztz0_nat,1)
+    CALL mpupdater(pv_ztz0_air,1)
     CALL mpupdater(pv_albedo_nat,1)
     CALL mpupdater(pv_albedo_PVf,1)
     CALL mpupdater(pv_albedo_PVb,1)
     CALL mpupdater(pv_emiss_nat,1)
     CALL mpupdater(pv_emiss_PVf,1)
     CALL mpupdater(pv_emiss_PVb,1)
-    CALL mpupdater(pv_l_PVb_can,1)
-    CALL mpupdater(pv_l_PVf_PVa,1)
+    CALL mpupdater(pv_C_for_f,1)
+    CALL mpupdater(pv_C_for_b,1)
+    CALL mpupdater(pv_p_for_f,1)
+    CALL mpupdater(pv_p_for_b,1)
+    CALL mpupdater(pv_fac_h_free,1)
+    CALL mpupdater(pv_tau_L,1)
+    CALL mpupdater(pv_L_floor,1)
     CALL mpupdater(pv_delta_PVf,1)
     CALL mpupdater(pv_delta_cell,1)
     CALL mpupdater(pv_delta_PVb,1)
@@ -3100,12 +3106,25 @@ SUBROUTINE initpara(nx,ny,nz,nzsoil,nstyps,namelist_filename)
     CALL mpupdater(pv_delta_backsheet,1)
     CALL mpupdater(pv_eta_STC,1)
     CALL mpupdater(pv_gamma_PV,1)
+    CALL mpupdater(pv_cgv,1)
+    CALL mpupdater(pv_wsat,1)
+    CALL mpupdater(pv_wfc,1)
+    CALL mpupdater(pv_wwlt,1)
+    CALL mpupdater(pv_rsmin,1)
+    CALL mpupdater(pv_wref,1)
+    CALL mpupdatei(pv_drain_opt,1)
+    CALL mpupdater(pv_c3_drain,1)
 
     IF (myproc == 0) WRITE(6,NML=pvland)
 
     IF (vf_update_opt < 0 .OR. vf_update_opt > 1) THEN
       IF (myproc == 0) WRITE (6,'(5x,a,i4,a)')                          &
           'vf_update_opt = ', vf_update_opt, ' must be 0 or 1.'
+      err_no = err_no + 1
+    END IF
+    IF (pv_drain_opt < 0 .OR. pv_drain_opt > 1) THEN
+      IF (myproc == 0) WRITE (6,'(5x,a,i4,a)')                          &
+          'pv_drain_opt = ', pv_drain_opt, ' must be 0 or 1.'
       err_no = err_no + 1
     END IF
     IF (pv_park_opt < 0 .OR. pv_park_opt > 2) THEN

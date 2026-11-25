@@ -190,7 +190,7 @@ SUBROUTINE rstout(nx,ny,nz,nzsoil,nstyps,exbcbufsz,                     &
 !-----------------------------------------------------------------------
 ! MODIF SYLVAIN
 !-----------------------------------------------------------------------
-  USE module_pvland_out, only : T_PVf, T_cell, T_PVb, ptsfc_eff, qvsfc_eff
+  USE module_pvland_out, only : T_PVf, T_cell, T_PVb, ptsfc_eff, qvsfc_eff, q_can, L_obk, T_can, T_PVa
 !-----------------------------------------------------------------------
 ! FIN MODIF SYLVAIN
 !-----------------------------------------------------------------------
@@ -556,6 +556,10 @@ SUBROUTINE rstout(nx,ny,nz,nzsoil,nstyps,exbcbufsz,                     &
     WRITE(rstount) T_PVb
     WRITE(rstount) ptsfc_eff
     WRITE(rstount) qvsfc_eff
+    WRITE(rstount) q_can        ! PV-LAND version 2
+    WRITE(rstount) L_obk
+    WRITE(rstount) T_can
+    WRITE(rstount) T_PVa
 !-----------------------------------------------------------------------
 !  Fin modif
 !-----------------------------------------------------------------------
@@ -819,7 +823,7 @@ SUBROUTINE rstjoinout(nx,ny,nz,nzsoil,nstyps,exbcbufsz,                 &
 !-----------------------------------------------------------------------
 ! MODIF SYLVAIN
 !-----------------------------------------------------------------------
-  USE module_pvland_out, only : T_PVf, T_cell, T_PVb, ptsfc_eff, qvsfc_eff
+  USE module_pvland_out, only : T_PVf, T_cell, T_PVb, ptsfc_eff, qvsfc_eff, q_can, L_obk, T_can, T_PVa
 !-----------------------------------------------------------------------
 ! FIN MODIF SYLVAIN
 !-----------------------------------------------------------------------
@@ -1277,6 +1281,18 @@ SUBROUTINE rstjoinout(nx,ny,nz,nzsoil,nstyps,exbcbufsz,                 &
     
     CALL mpimerge2d(qvsfc_eff,nx,ny,out2d)
     IF(myproc == 0) WRITE(rstount) out2d
+
+    CALL mpimerge2d(q_can,nx,ny,out2d)       ! PV-LAND version 2
+    IF(myproc == 0) WRITE(rstount) out2d
+
+    CALL mpimerge2d(L_obk,nx,ny,out2d)
+    IF(myproc == 0) WRITE(rstount) out2d
+
+    CALL mpimerge2d(T_can,nx,ny,out2d)
+    IF(myproc == 0) WRITE(rstount) out2d
+
+    CALL mpimerge2d(T_PVa,nx,ny,out2d)
+    IF(myproc == 0) WRITE(rstount) out2d
 !-----------------------------------------------------------------------
 !  Fin modif
 !-----------------------------------------------------------------------
@@ -1629,7 +1645,7 @@ SUBROUTINE rstin(nx,ny,nz,nzsoil,nts,nstyps,exbcbufsz,                  &
 !-----------------------------------------------------------------------
 ! MODIF SYLVAIN
 !-----------------------------------------------------------------------
-  USE module_pvland_out, only : T_PVf, T_cell, T_PVb, ptsfc_eff, qvsfc_eff
+  USE module_pvland_out, only : T_PVf, T_cell, T_PVb, ptsfc_eff, qvsfc_eff, q_can, L_obk, T_can, T_PVa
 !-----------------------------------------------------------------------
 ! FIN MODIF SYLVAIN
 !-----------------------------------------------------------------------
@@ -2173,6 +2189,10 @@ SUBROUTINE rstin(nx,ny,nz,nzsoil,nts,nstyps,exbcbufsz,                  &
         READ(rstiunt,ERR=999) T_PVb
         READ(rstiunt,ERR=999) ptsfc_eff
         READ(rstiunt,ERR=999) qvsfc_eff
+        READ(rstiunt,ERR=999) q_can        ! PV-LAND version 2
+        READ(rstiunt,ERR=999) L_obk
+        READ(rstiunt,ERR=999) T_can
+        READ(rstiunt,ERR=999) T_PVa
 !-----------------------------------------------------------------------
 !  Fin modif
 !-----------------------------------------------------------------------
@@ -2669,7 +2689,7 @@ SUBROUTINE rstinsplit(nx,ny,nz,nzsoil,nts,nstyps,exbcbufsz,             &
 !-----------------------------------------------------------------------
 ! MODIF SYLVAIN
 !-----------------------------------------------------------------------
-  USE module_pvland_out, only : T_PVf, T_cell, T_PVb, ptsfc_eff, qvsfc_eff
+  USE module_pvland_out, only : T_PVf, T_cell, T_PVb, ptsfc_eff, qvsfc_eff, q_can, L_obk, T_can, T_PVa
 !-----------------------------------------------------------------------
 ! FIN MODIF SYLVAIN
 !-----------------------------------------------------------------------
@@ -3324,6 +3344,18 @@ SUBROUTINE rstinsplit(nx,ny,nz,nzsoil,nts,nstyps,exbcbufsz,             &
     
     IF(myproc == 0) READ(rstiunt,ERR=999) in2d
     CALL mpisplit2d(in2d,nx,ny,qvsfc_eff)
+
+    IF(myproc == 0) READ(rstiunt,ERR=999) in2d   ! PV-LAND version 2
+    CALL mpisplit2d(in2d,nx,ny,q_can)
+
+    IF(myproc == 0) READ(rstiunt,ERR=999) in2d
+    CALL mpisplit2d(in2d,nx,ny,L_obk)
+
+    IF(myproc == 0) READ(rstiunt,ERR=999) in2d
+    CALL mpisplit2d(in2d,nx,ny,T_can)
+
+    IF(myproc == 0) READ(rstiunt,ERR=999) in2d
+    CALL mpisplit2d(in2d,nx,ny,T_PVa)
 !-----------------------------------------------------------------------
 !  Fin modif
 !-----------------------------------------------------------------------
