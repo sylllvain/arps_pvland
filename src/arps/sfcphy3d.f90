@@ -757,10 +757,12 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
          u,v,w,ptprt,pprt,qv,ptbar,pbar,qvbar,zp,prcrate,               &
          soiltyp,stypfrct,vegtyp,lai,roufns,veg,                        &
          tsoil,qsoil,wetcanp,snowdpth,qvsfc,                            &
-         radsw,rnflx,radlwin,psfc,rhosfc,gumove,                        &
+         radsw,rnflx,radlwin,psfc,rhosfc,wdspsfc,gumove,gvmove,         &
          cdm,cdh,cdq,usflx,vsflx,ptsflx,qvsflx,                         &
          pt1,tair,qvair,                                                &
          0,temxy1,temxy2,temxy3,temxy4)
+
+    IF ( soilinitopt == 1 .AND. nstep == 1 ) nsfcst = nsfcstsave
           
 !-----------------------------------------------------------------------
 !
