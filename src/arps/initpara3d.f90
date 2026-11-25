@@ -3108,9 +3108,9 @@ SUBROUTINE initpara(nx,ny,nz,nzsoil,nstyps,namelist_filename)
           'vf_update_opt = ', vf_update_opt, ' must be 0 or 1.'
       err_no = err_no + 1
     END IF
-    IF (pv_park_opt < 0 .OR. pv_park_opt > 1) THEN
+    IF (pv_park_opt < 0 .OR. pv_park_opt > 2) THEN
       IF (myproc == 0) WRITE (6,'(5x,a,i4,a)')                          &
-          'pv_park_opt = ', pv_park_opt, ' must be 0 or 1.'
+          'pv_park_opt = ', pv_park_opt, ' must be 0, 1 or 2.'
       err_no = err_no + 1
     END IF
   END IF

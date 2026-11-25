@@ -2020,7 +2020,7 @@
  &pvland
    vf_update_opt  = 0,       ! View factors, radiosity LU factors and tilt-derived geometry: 0 = computed once at initialisation (fixed panels), 1 = recomputed every PV-LAND step (moving panels)
 
-   pv_park_opt    = 1,       ! PV park location: 0 = whole domain, 1 = rectangle pv_park_i1:pv_park_i2 x pv_park_j1:pv_park_j2
+   pv_park_opt    = 1,       ! PV park location: 0 = whole domain, 1 = rectangle pv_park_i1:pv_park_i2 x pv_park_j1:pv_park_j2, 2 = no PV park (natural ground only, as sfcphy = 4)
      pv_park_i1   = 25,      ! First global x index (scalar point) of the PV park (pv_park_opt = 1)
      pv_park_i2   = 50,      ! Last global x index of the PV park, clipped to the domain (pv_park_opt = 1)
      pv_park_j1   = 1,       ! First global y index (scalar point) of the PV park (pv_park_opt = 1)
