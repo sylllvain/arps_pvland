@@ -1947,10 +1947,10 @@
 
  &soil_ebm
    sfcdat   = 1,
-     styp     = 6,
+     styp     = 1,
      vtyp     = 3,
      lai0     = 2.0,
-     roufns0  = 0.05,
+     roufns0  = 0.073,
      veg0     = 0.95,
 
      sfcdtfl  = 'arpssfc.data',

@@ -332,6 +332,7 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
 ! Modif sylvain
 !-----------------------------------------------------------------------
   ! PV-LAND variables: see pvland_driver.f90  [SYLVAIN]
+  LOGICAL :: pv_diag    ! PV-LAND diagnostics needed at this step (history dump)
 
 !-----------------------------------------------------------------------
 ! Fin Modif sylvain
@@ -751,6 +752,18 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
       nsfcst = nint(soiltintv/dtsfc)
     END IF
 
+    ! PV-LAND diagnostics (radiation, PV energy balance) are needed only
+    ! for the history dump written at the end of this step: same test as
+    ! in SUBROUTINE output (out3d.f90).  [SYLVAIN]
+    pv_diag = .FALSE.
+    IF ( nhisdmp > 0 .AND. hdmpfmt /= 0 ) THEN
+      IF ( hdmpopt == 1 .AND. nstep >= nstrtdmp ) THEN
+        pv_diag = MOD(nstep-nstrtdmp,nhisdmp) == 0
+      ELSE IF ( hdmpopt == 2 .AND. numhdmp > 0 ) THEN
+        pv_diag = ANY( hdmpstp(1:numhdmp) == nstep )
+      END IF
+    END IF
+
     ! temxy1..3 are passed for the measured-forcing arguments, which are
     ! not used with meas_opt = 0
     CALL pvland_sfcphy(nx,ny,nz,nzsoil,nstyps,                          &
@@ -760,7 +773,7 @@ SUBROUTINE sfcphysics(nx,ny,nz,nzsoil,nstyps,                           &
          radsw,rnflx,radlwin,psfc,rhosfc,wdspsfc,gumove,gvmove,         &
          cdm,cdh,cdq,usflx,vsflx,ptsflx,qvsflx,                         &
          pt1,tair,qvair,                                                &
-         0,temxy1,temxy2,temxy3)
+         0,temxy1,temxy2,temxy3,pv_diag)
 
     IF ( soilinitopt == 1 .AND. nstep == 1 ) nsfcst = nsfcstsave
           
